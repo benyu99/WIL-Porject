@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="#7a5af8"/><circle cx="650" cy="90" r="140" fill="#9a82fa"/><circle cx="90" cy="420" r="170" fill="#5f3fe0"/>
+<path d="M170 130h260a40 40 0 0 1 40 40v70a40 40 0 0 1-40 40H280l-60 50v-50h-50a40 40 0 0 1-40-40v-70a40 40 0 0 1 40-40z" fill="#fff"/>
+<path d="M420 230h210a40 40 0 0 1 40 40v60a40 40 0 0 1-40 40h-40v44l-56-44H420a40 40 0 0 1-40-40v-60a40 40 0 0 1 40-40z" fill="#ffc233"/>
+<circle cx="230" cy="205" r="14" fill="#7a5af8"/><circle cx="300" cy="205" r="14" fill="#7a5af8"/><circle cx="370" cy="205" r="14" fill="#7a5af8"/></svg>
