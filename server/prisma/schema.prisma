@@ -1,0 +1,53 @@
+// Prisma schema for the campaign platform backend.
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(uuid())
+  name         String     @db.VarChar(100)
+  email        String     @unique @db.VarChar(255)
+  passwordHash String     @map("password_hash") @db.VarChar(255)
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime   @updatedAt @map("updated_at") @db.Timestamptz(3)
+  campaigns    Campaign[]
+
+  @@map("users")
+}
+
+model Category {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique @db.VarChar(100)
+  slug      String     @unique @db.VarChar(100)
+  campaigns Campaign[]
+
+  @@map("categories")
+}
+
+model Campaign {
+  id          String    @id @default(uuid())
+  ownerId     String    @map("owner_id")
+  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  categoryId  Int?      @map("category_id")
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  title       String    @db.VarChar(200)
+  description String?   @db.Text
+  goalAmount  Decimal?  @map("goal_amount") @db.Decimal(12, 2)
+  status      String    @default("draft") @db.VarChar(20)
+  startDate   DateTime? @map("start_date") @db.Date
+  endDate     DateTime? @map("end_date") @db.Date
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([ownerId])
+  @@index([categoryId])
+  @@index([status])
+  @@map("campaigns")
+}
