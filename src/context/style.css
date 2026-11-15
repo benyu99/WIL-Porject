@@ -1,0 +1,215 @@
+/* =====================================================
+   CAMPAIGN CONNECT - FRONT END DESIGNER STYLES
+   Contents:
+   1. Colours and defaults  2. Navigation and buttons
+   3. Landing page         4. Campaign cards and filters
+   5. Login and logout     6. Footer and mobile layouts
+   ===================================================== */
+
+/* 1. COLOURS AND DEFAULTS
+   Change these variables to update the site's colour theme. */
+:root {
+  --teal: #0d5b63;
+  --dark-teal: #084048;
+  --orange: #d96c3b;
+  --text: #0b2027;
+  --muted: #3f5a63;
+  --background: #f6fafb;
+  --border: #d5e3e4;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--background);
+}
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+h1, h2, h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1.15;
+  overflow-wrap: break-word;
+}
+h1 { font-size: clamp(40px, 4.8vw, 68px); letter-spacing: -2px; margin: 20px 0; }
+h2 { font-size: 34px; margin: 12px 0 22px; }
+h3 { font-size: 25px; margin: 15px 0; }
+p { overflow-wrap: break-word; }
+[hidden] { display: none !important; }
+main { min-height: 65vh; }
+main:focus { outline: none; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 4px;
+}
+.section { max-width: 1320px; margin: auto; padding: 45px 5% 70px; }
+.eyebrow { display: block; font-size: 10px; font-weight: bold; letter-spacing: 1.6px; }
+.intro, .muted { color: var(--muted); }
+.intro { margin-bottom: 30px; }
+.muted { font-size: 12px; }
+.page-title { font-size: 50px; }
+.notice {
+  padding: 15px 20px;
+  border: 1px solid #b8d5d8;
+  border-radius: 12px;
+  color: var(--dark-teal);
+  background: #e3f1f2;
+  font-size: 13px;
+}
+
+/* 2. NAVIGATION AND BUTTONS */
+.skip { position: absolute; top: -60px; padding: 12px; background: white; z-index: 30; }
+.skip:focus { top: 0; }
+.topline {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 5%;
+  color: white;
+  background: var(--dark-teal);
+  font-size: 11px;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 5%;
+  background: #f6fafbf2;
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 7px; font-size: 20px; font-weight: bold; color: var(--dark-teal); white-space: nowrap; }
+.brand span { font-weight: normal; margin-left: -7px; }
+.brand-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; color: white; background: var(--teal); font-size: 27px; }
+nav, .account { display: flex; align-items: center; gap: 25px; font-size: 14px; }
+nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 8px; }
+.greeting { font-size: 13px; }
+.button, button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 25px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: transparent;
+  color: var(--teal);
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.dark { color: white; background: var(--teal); box-shadow: 0 10px 24px -8px #0d5b6370; }
+.dark:hover { background: var(--dark-teal); }
+.text-link { color: var(--teal); font-size: 13px; font-weight: bold; border-bottom: 1px solid #0d5b6340; padding-bottom: 5px; }
+
+/* 3. LANDING PAGE - hero, illustration and introduction sections */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 65px;
+  max-width: 1320px;
+  margin: auto;
+  padding: 65px 5% 80px;
+  background: radial-gradient(ellipse at 15% 20%, #e3f1f2, transparent 65%);
+}
+.hero .eyebrow { display: inline-block; padding: 10px 15px; border: 1px solid var(--border); border-radius: 99px; background: white; color: var(--teal); }
+.hero h1 em { font-style: normal; color: var(--teal); text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 9px; text-decoration-thickness: 4px; }
+.hero p { max-width: 430px; margin-bottom: 27px; font-size: 17px; color: var(--muted); }
+.hero-caption { display: flex; align-items: center; gap: 9px; margin-top: 25px; font-size: 12px; }
+.tiny-star { font-size: 25px; color: var(--orange); }
+.hero-art { position: relative; height: 450px; overflow: hidden; border-radius: 32px; background: linear-gradient(145deg, #cfe6e8, #a1c9c7); box-shadow: 0 24px 60px -20px #0b202740; }
+.community-art { position: absolute; bottom: 0; width: 100%; height: 100%; }
+.pill { position: absolute; padding: 14px 18px; border-radius: 18px; background: white; color: var(--dark-teal); font-size: 12px; box-shadow: 0 8px 24px #0b202712; }
+.p1 { top: 27px; left: 20px; transform: rotate(-4deg); }
+.p2 { bottom: 26px; right: 18px; transform: rotate(3deg); }
+.section-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 28px; }
+.banner { display: flex; justify-content: space-between; gap: 20px; padding: 25px 5%; border-block: 1px solid var(--border); background: #e3f1f2; color: var(--teal); font-size: 11px; font-weight: bold; letter-spacing: 1px; }
+.how { padding-top: 75px; padding-bottom: 80px; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+.steps article { padding: 30px; border: 1px solid var(--border); border-radius: 20px; background: white; }
+.steps b { display: grid; place-items: center; width: 45px; height: 45px; border-radius: 12px; background: #fbe9e0; color: #bd5428; }
+.steps p { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+.community-cta { margin: 0 5% 80px; padding: 65px 25px; border-radius: 32px; color: white; text-align: center; background: linear-gradient(135deg, var(--dark-teal), var(--teal)); }
+.community-cta h2 { font-size: 44px; }
+.community-cta p { color: #d4e8e8; margin-bottom: 28px; }
+.community-cta .button { color: var(--teal); background: white; }
+
+/* 4. CAMPAIGN CARDS AND SEARCH FILTERS */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.card { overflow: hidden; border: 1px solid var(--border); border-radius: 20px; background: white; box-shadow: 0 8px 24px #0b20270b; }
+.art { position: relative; display: flex; align-items: center; justify-content: center; height: 190px; overflow: hidden; }
+.art span { font-family: Georgia, serif; font-size: 130px; line-height: 1; transform: rotate(-10deg); }
+.art small { position: absolute; bottom: 15px; left: 20px; font-size: 9px; letter-spacing: 2px; }
+.mint { background: #e3f1f2; color: var(--teal); }
+.peach { background: #fbe9e0; color: #be6138; }
+.lavender { background: #e9e5ef; color: #70618c; }
+.card-body { padding: 26px; }
+.card .eyebrow { font-size: 9px; letter-spacing: 1px; }
+.card p { color: var(--muted); font-size: 14px; }
+.filters { display: flex; gap: 20px; max-width: 700px; margin-top: 30px; }
+.filters label:first-child { flex: 1; }
+.empty { padding: 40px; text-align: center; border: 1px dashed var(--border); }
+
+/* 5. LOGIN AND LOGOUT - input labels, form controls and feedback */
+label { display: block; font-size: 13px; font-weight: bold; }
+input, select { display: block; width: 100%; padding: 13px 15px; margin: 9px 0 20px; border: 1px solid #acc8ca; border-radius: 12px; background: white; color: var(--text); }
+select { min-width: 170px; }
+.auth-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1200px; margin: 50px auto 70px; padding: 0 5%; }
+.auth-intro { padding: 45px; border-radius: 24px; background: linear-gradient(145deg, #e3f1f2, #b7d9d8); }
+.auth-intro h1 { font-size: 54px; color: var(--dark-teal); }
+.auth-intro p { color: var(--muted); }
+.auth-star { font-size: 180px; text-align: center; color: var(--teal); }
+.auth-panel { max-width: 420px; padding: 30px 0; }
+.auth-panel > p { color: var(--muted); font-size: 14px; }
+.auth-panel form { margin-top: 28px; }
+.auth-panel form button { width: 100%; margin-top: 14px; }
+.demo-note { font-size: 12px; line-height: 1.8; margin-top: 20px; }
+.logout-panel { min-height: 55vh; padding-top: 65px; }
+.logout-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* 6. FOOTER AND RESPONSIVE LAYOUTS
+   At smaller widths the grids become a single column. */
+footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 36px 5%; border-top: 1px solid var(--border); background: white; }
+footer p, footer small { font-size: 11px; color: var(--muted); }
+
+@media (max-width: 900px) {
+  header { flex-wrap: wrap; }
+  nav { order: 3; width: 100%; justify-content: center; }
+  .account { margin-left: auto; }
+  .hero { gap: 30px; }
+  .hero-art { height: 380px; }
+  .auth-layout { gap: 30px; }
+  .auth-intro { padding: 28px; }
+  .auth-intro h1 { font-size: 42px; }
+  .cards, .steps { gap: 16px; }
+  .card-body, .steps article { padding: 20px; }
+  footer { flex-wrap: wrap; }
+}
+
+@media (max-width: 620px) {
+  header { position: relative; gap: 18px; }
+  .brand { font-size: 17px; }
+  .topline span { display: none; }
+  .hero, .cards, .steps, .auth-layout { grid-template-columns: 1fr; }
+  .hero { padding-top: 35px; }
+  .hero h1 { font-size: 46px; }
+  .hero-art { height: 350px; }
+  .hero .eyebrow { font-size: 9px; }
+  .section-head, .banner, .filters { flex-direction: column; align-items: stretch; }
+  .section-head h2, h2 { font-size: 28px; }
+  .page-title { font-size: 40px; }
+  .how { padding-top: 45px; padding-bottom: 45px; }
+  .community-cta { padding: 45px 22px; margin-bottom: 45px; }
+  .community-cta h2 { font-size: 34px; }
+  .auth-layout { margin-top: 25px; }
+  .auth-intro h1 { font-size: 38px; }
+  .auth-star { display: none; }
+  .auth-panel { max-width: none; padding-top: 0; }
+  footer { flex-direction: column; align-items: start; }
+}
