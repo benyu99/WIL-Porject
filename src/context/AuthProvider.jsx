@@ -3,37 +3,48 @@ import * as authApi from '../api/auth.js';
 import { setUnauthorizedHandler } from '../api/client.js';
 import { AuthContext } from './authContext.js';
 
+const DEMO_ID = 'demo@campaignconnect.test';
+const DEMO_PASSWORD = 'Demo123!';
+const DEMO_SESSION_KEY = 'campaign_demo_session';
+const demoUser = { id: DEMO_ID, email: DEMO_ID, name: 'Demo User' };
+
+function hasDemoSession() {
+  try {
+    return localStorage.getItem(DEMO_SESSION_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+function setDemoSession(isAuthenticated) {
+  try {
+    if (isAuthenticated) {
+      localStorage.setItem(DEMO_SESSION_KEY, 'true');
+    } else {
+      localStorage.removeItem(DEMO_SESSION_KEY);
+    }
+  } catch {
+    // Keep the current session usable when browser storage is unavailable.
+  }
+}
+
 // Keeps the logged-in user in one place for the whole app.
-// On page load it calls /api/auth/me to restore the session from the stored token.
+// Demo sessions are restored locally; API sessions still use the stored token.
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(() => (hasDemoSession() ? demoUser : null));
+  const loading = false;
 
   useEffect(() => {
     setUnauthorizedHandler(() => setUser(null));
-
-    let cancelled = false;
-    authApi
-      .getCurrentUser()
-      .then((u) => {
-        if (!cancelled) setUser(u);
-      })
-      .catch(() => {
-        if (!cancelled) setUser(null);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
   const login = useCallback(async (credentials) => {
-    const u = await authApi.login(credentials);
-    setUser(u);
-    return u;
+    if (credentials.email !== DEMO_ID || credentials.password !== DEMO_PASSWORD) {
+      throw new Error('Invalid ID or password.');
+    }
+    setDemoSession(true);
+    setUser(demoUser);
+    return demoUser;
   }, []);
 
   const register = useCallback(async (details) => {
@@ -43,6 +54,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const logout = useCallback(() => {
+    setDemoSession(false);
     authApi.logout();
     setUser(null);
   }, []);

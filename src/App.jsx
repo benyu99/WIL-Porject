@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import Header from './components/Header'
 import LandingPage from './pages/LandingPage'
 import CampaignList from './pages/CampaignList'
+import LoginPage from './pages/login'
+import { useAuth } from './hooks/useAuth'
 import { campaigns } from './data/campaigns'
 import './App.css'
 
@@ -13,6 +15,7 @@ function parseHash() {
   const params = new URLSearchParams(query)
   const parts = path.split('/').filter(Boolean)
 
+  if (parts[0] === 'login') return { name: 'login' }
   if (parts[0] === 'campaigns' && parts[1]) return { name: 'detail', id: parts[1] }
   if (parts[0] === 'campaigns') {
     return {
@@ -26,6 +29,7 @@ function parseHash() {
 
 export default function App() {
   const [route, setRoute] = useState(parseHash)
+  const { isAuthenticated, loading } = useAuth()
 
   useEffect(() => {
     const onChange = () => {
@@ -36,12 +40,25 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onChange)
   }, [])
 
+  useEffect(() => {
+    if (!loading && !isAuthenticated && route.name !== 'login') {
+      window.location.hash = '#/login'
+    }
+  }, [isAuthenticated, loading, route.name])
+
+  if (loading && route.name !== 'login') return null
+
+  const currentRoute =
+    !isAuthenticated && route.name !== 'login' ? { name: 'login' } : route
+
   let page
-  if (route.name === 'campaigns') {
+  if (currentRoute.name === 'campaigns') {
     // key forces a fresh filter state when arriving from a topic link
-    page = <CampaignList key={route.category + route.status} initialCategory={route.category} initialStatus={route.status} />
-  } else if (route.name === 'detail') {
-    const c = campaigns.find((x) => x.id === route.id)
+    page = <CampaignList key={currentRoute.category + currentRoute.status} initialCategory={currentRoute.category} initialStatus={currentRoute.status} />
+  } else if (currentRoute.name === 'login') {
+    page = <LoginPage />
+  } else if (currentRoute.name === 'detail') {
+    const c = campaigns.find((x) => x.id === currentRoute.id)
     page = (
       <main className="container page">
         <a className="text-link" href="#/campaigns">Back to campaigns</a>
@@ -55,7 +72,7 @@ export default function App() {
 
   return (
     <>
-      <Header route={route} />
+      <Header route={currentRoute} />
       {page}
     </>
   )

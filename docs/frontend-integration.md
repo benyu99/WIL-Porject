@@ -14,15 +14,17 @@ This branch adds the layer the React screens use to talk to the back-end API (`s
 | File | Purpose |
 | --- | --- |
 | `src/api/client.js` | Shared request function. Adds the JWT, handles errors, clears the token on 401. |
-| `src/api/auth.js` | `register`, `login`, `getCurrentUser`, `logout` |
+| `src/api/auth.js` | API-backed `register`, `login`, `getCurrentUser`, and `logout` functions. |
 | `src/api/campaigns.js` | `listCampaigns`, `getCampaign`, `createCampaign`, `updateCampaign`, `deleteCampaign`, `listCategories` |
-| `src/context/AuthProvider.jsx` | Keeps the logged-in user for the whole app and restores the session on refresh. |
+| `src/context/AuthProvider.jsx` | Keeps the logged-in user for the whole app and restores the demo session locally on refresh. |
 | `src/hooks/useAuth.js` | `const { user, isAuthenticated, loading, login, register, logout } = useAuth()` |
 | `src/hooks/useCampaigns.js` | `const { items, total, loading, error, reload } = useCampaigns({ page, categoryId, status })` |
 
 ## Examples
 
-Login form (T2SA-47):
+The current login screen checks the demo ID and password in the frontend and does not call the auth API. Use `demo@campaignconnect.test` / `Demo123!`. Other functions in `src/api/auth.js` remain available for later API-backed flows.
+
+Demo login:
 
 ```jsx
 const { login } = useAuth();
