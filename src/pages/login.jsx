@@ -39,7 +39,7 @@ export default function LoginPage() {
         <h2>Welcome back</h2>
         <p>Log in to explore your community.</p>
         <form id="login-form" onSubmit={handleSubmit}>
-          <label htmlFor="email">Demo ID</label>
+          <label htmlFor="email">ID</label>
           <input
             id="email"
             name="email"
@@ -63,6 +63,7 @@ export default function LoginPage() {
             {isSubmitting ? 'Logging in…' : 'Log in →'}
           </button>
         </form>
+        <a className="auth-switch" href="#/register">Register now</a>
         <div className="notice demo-note">
           <strong>Demo access</strong>
           <br />

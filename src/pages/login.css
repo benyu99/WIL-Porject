@@ -135,6 +135,24 @@
   margin-top: 14px;
 }
 
+.auth-layout .auth-switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px 25px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  color: var(--teal);
+  font: bold 14px Arial, Helvetica, sans-serif;
+  text-decoration: none;
+}
+
+.auth-layout .auth-switch:hover {
+  background: #e3f1f2;
+}
+
 .auth-layout .notice {
   padding: 15px 20px;
   border: 1px solid #b8d5d8;
